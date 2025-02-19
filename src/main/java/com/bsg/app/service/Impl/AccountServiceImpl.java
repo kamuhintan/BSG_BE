@@ -49,11 +49,11 @@ public class AccountServiceImpl implements AccountService {
         String generatePassword = StringUtilities.generateRandomString();
         String password = passwordEncoder.encode(generatePassword);
         String avatar = createAvatar(req.getName());
-        Account account = Account.builder().name(req.getName()).username(req.getUsername()).password(password).avatar(avatar).createdBy(getCurrentAccountId()).build();
+        Account account = Account.builder().name(req.getName()).username(req.getUsername()).password(password).build();
         try {
 
             accountRepository.save(account);
-            return ResponseCreateNewAccount.builder().name(account.getName()).password(generatePassword).username(account.getUsername()).name(account.getName()).avatar(account.getAvatar()).build();
+            return ResponseCreateNewAccount.builder().name(account.getName()).password(generatePassword).username(account.getUsername()).name(account.getName()).build();
         } catch (Exception e) {
             throw new SystemErrorException(e);
         }
@@ -99,10 +99,8 @@ public class AccountServiceImpl implements AccountService {
             List<Account> accountList = accountPage.getContent();
             List<ResponseListAccount> responseListAccounts = new ArrayList<>();
             for (Account account : accountList) {
-                Optional<Account> createdByAccount = Optional.ofNullable(getCurrentAccount(account.getCreatedBy()));
 
-                ResponseListAccount responseListAccount = ResponseListAccount.builder().name(account.getName()).username(account.getUsername()).id(account.getId()).createdDate(account.getCreatedDate()).avatar(account.getAvatar()).build();
-                createdByAccount.ifPresent(value -> responseListAccount.setCreatedBy(value.getName()));
+                ResponseListAccount responseListAccount = ResponseListAccount.builder().name(account.getName()).username(account.getUsername()).id(account.getId()).createdDate(account.getCreatedDate()).build();
                 responseListAccounts.add(responseListAccount);
             }
             return new PageImpl<>(responseListAccounts, accountPage.getPageable(), accountPage.getTotalElements());
@@ -124,7 +122,7 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(newPassword);
         try {
             accountRepository.save(account);
-            return ResponseCreateNewAccount.builder().name(account.getName()).password(password).username(account.getUsername()).name(account.getName()).avatar(account.getAvatar()).build();
+            return ResponseCreateNewAccount.builder().name(account.getName()).password(password).username(account.getUsername()).name(account.getName()).build();
         } catch (Exception e) {
             throw new SystemErrorException(e);
         }
@@ -169,7 +167,6 @@ public class AccountServiceImpl implements AccountService {
             if (optionalAccount.isEmpty()) {
                 throw new BadRequestException(ResponseEnum.ACCOUNT_NOT_FOUND);
             }
-            accountRepository.updateCreatedByReferences(id, currentUserId);
             accountRepository.delete(optionalAccount.get());
             return ResponseEnum.ACCOUNT_DELETED_SUCCESSFULLY;
         } catch (Exception e) {
@@ -188,7 +185,6 @@ public class AccountServiceImpl implements AccountService {
             return ResponseGetMe.builder()
                     .id(account.getId())
                     .name(account.getName())
-                    .avatar(account.getAvatar())
                     .username(account.getUsername())
                     .createdDate(account.getCreatedDate())
                     .build();

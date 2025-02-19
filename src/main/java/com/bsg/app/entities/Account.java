@@ -34,16 +34,8 @@ public class Account implements UserDetails
     @Column(name = "password")
     private String password;
 
-
-    @Column(name = "avatar")
-    private String avatar;
-
     @Column(name = "created_date")
     private Long createdDate;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

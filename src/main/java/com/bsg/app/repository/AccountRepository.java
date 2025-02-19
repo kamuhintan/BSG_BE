@@ -21,8 +21,4 @@ public interface AccountRepository extends JpaRepository<Account, String> {
             "WHERE (:query IS NULL OR :query = '' OR LOWER(a.name) LIKE LOWER(CONCAT('%', :query, '%'))) " +
             "ORDER BY a.createdDate DESC")
     Page<Account> findAllAndFilter(@Param("query") String query, Pageable pageable);
-
-    @Modifying
-    @Query("UPDATE Account a SET a.createdBy = :newCreatedBy WHERE a.createdBy = :oldCreatedBy")
-    void updateCreatedByReferences(@Param("oldCreatedBy") String oldCreatedBy, @Param("newCreatedBy") String newCreatedBy);
 }

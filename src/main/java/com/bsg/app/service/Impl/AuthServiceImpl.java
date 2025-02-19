@@ -44,8 +44,8 @@ public class AuthServiceImpl implements AuthService {
                     .name(reqRegister.getName())
                     .username(reqRegister.getUsername())
                     .password(password)
-                    .avatar(accountService.createAvatar(reqRegister.getName()))
                     .build();
+
             accountRepository.save(account);
             return ResponseEnum.SUCCESS;
         } catch (Exception e) {
