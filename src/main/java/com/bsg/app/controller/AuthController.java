@@ -9,3 +9,4 @@ public interface AuthController {
     @GetMapping("ping")
     String ping();
 }
+
