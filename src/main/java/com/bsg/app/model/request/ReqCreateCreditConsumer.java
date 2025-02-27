@@ -1,5 +1,6 @@
 package com.bsg.app.model.request;
 
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,16 +18,15 @@ import java.util.Date;
 @AllArgsConstructor
 @JsonSerialize
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class RequestCreateCreditCommercial {
-
+public class ReqCreateCreditConsumer {
     private String name;
-    private Date date;
-    private String number;
+    private String date;
+    private String insurance;
     private BigInteger plafond;
-    private String creditType;
-    private Date pkDate;
-    private String requestNumber;
-    private String businessType;
-    private String assurance;
-
+    private String agency;
+    private String phoneNumber;
+    private String address;
+    private String consumerCreditType;
+    private String number;
+    private String consumerCreditSubType;
 }

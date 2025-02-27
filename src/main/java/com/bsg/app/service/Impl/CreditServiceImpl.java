@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class CreditServiceImpl implements CreditService {
 
             Credit credit = Credit.builder()
                     .name(req.getName())
-                    .date(req.getDate())
+                    .date(new Date(req.getDate()))
                     .insurance(req.getInsurance())
                     .plafond(req.getPlafond())
                     .agency(req.getAgency())
@@ -72,11 +73,11 @@ public class CreditServiceImpl implements CreditService {
 
             Credit credit = Credit.builder()
                     .name(req.getName())
-                    .date(req.getDate())
+                    .date(new Date(req.getDate()))
                     .insurance(req.getAssurance())
                     .businessType(req.getBusinessType())
                     .requestNumber(req.getRequestNumber())
-                    .pkDate(req.getPkDate())
+                    .pkDate(new Date(req.getPkDate()))
                     .number(req.getNumber())
                     .plafond(req.getPlafond())
                     .type(CreditTypeEnum.COMMERCIAL)
