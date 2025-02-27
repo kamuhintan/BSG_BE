@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,7 +38,7 @@ public class MailServiceImpl implements MailService {
                     .recipient(req.getRecipient())
                     .subType(req.getSubType())
                     .type(req.getType())
-                    .date(req.getDate())
+                    .date(new Date(req.getDate()))
                     .createdBy(accountId)
                     .build();
             mailRepository.save(mail);
