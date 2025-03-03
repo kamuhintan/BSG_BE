@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @BaseController("auth")
 
 public interface AuthController {
+
     @PostMapping("v1/register")
     BaseResponse registerSuperAdmin(@RequestBody ReqRegister reqRegister);
 
