@@ -46,7 +46,7 @@ public class CreditServiceImpl implements CreditService {
 
             Credit credit = Credit.builder()
                     .name(req.getName())
-                    .date(new Date(req.getDate()))
+                    .date(req.getDate())
                     .insurance(req.getInsurance())
                     .plafond(req.getPlafond())
                     .agency(req.getAgency())
@@ -73,11 +73,11 @@ public class CreditServiceImpl implements CreditService {
 
             Credit credit = Credit.builder()
                     .name(req.getName())
-                    .date(new Date(req.getDate()))
+                    .date(req.getDate())
                     .insurance(req.getAssurance())
                     .businessType(req.getBusinessType())
                     .requestNumber(req.getRequestNumber())
-                    .pkDate(new Date(req.getPkDate()))
+                    .pkDate(req.getPkDate())
                     .number(req.getNumber())
                     .plafond(req.getPlafond())
                     .type(CreditTypeEnum.COMMERCIAL)

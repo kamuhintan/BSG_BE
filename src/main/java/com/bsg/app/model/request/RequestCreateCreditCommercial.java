@@ -20,11 +20,11 @@ import java.util.Date;
 public class RequestCreateCreditCommercial {
 
     private String name;
-    private String date;
+    private Date date;
     private String number;
     private BigInteger plafond;
     private String creditType;
-    private String pkDate;
+    private Date pkDate;
     private String requestNumber;
     private String businessType;
     private String assurance;

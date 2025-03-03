@@ -20,7 +20,7 @@ import java.util.Date;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ReqCreateCreditConsumer {
     private String name;
-    private String date;
+    private Date date;
     private String insurance;
     private BigInteger plafond;
     private String agency;
