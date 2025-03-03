@@ -38,7 +38,7 @@ public class MailServiceImpl implements MailService {
                     .recipient(req.getRecipient())
                     .subType(req.getSubType())
                     .type(req.getType())
-                    .date(new Date(req.getDate()))
+                    .date(req.getDate())
                     .createdBy(accountId)
                     .build();
             mailRepository.save(mail);

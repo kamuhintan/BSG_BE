@@ -27,7 +27,7 @@ public class RequestCreateMail {
     private MailTypeEnum type;
     private String note;
     private MailSubTypeEnum subType;
-    private String date;
+    private Date date;
 
 
 }
