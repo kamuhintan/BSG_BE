@@ -57,6 +57,7 @@ public class CreditServiceImpl implements CreditService {
                     .consumerCreditSubType(req.getConsumerCreditSubType())
                     .number(req.getNumber())
                     .createdBy(accountService.getCurrentAccountId())
+                    .pkNumber(req.getPkNumber())
                     .build();
             creditRepository.save(credit);
             return ResponseEnum.SUCCESS.name();
@@ -138,6 +139,7 @@ public class CreditServiceImpl implements CreditService {
                         .consumerCreditSubType(credit.getConsumerCreditSubType())
                         .number(credit.getNumber())
                         .createdDate(credit.getCreatedDate())
+                        .pkNumber(credit.getPkNumber())
                         .build();
                 createdByAccount.ifPresent(value -> responseCreditConsumer.setCreatedBy(value.getName()));
                 responseCreditConsumers.add(responseCreditConsumer);

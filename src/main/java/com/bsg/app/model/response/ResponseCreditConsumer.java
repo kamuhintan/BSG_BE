@@ -34,6 +34,7 @@ public class ResponseCreditConsumer {
     private String consumerCreditType;
     private String consumerCreditSubType;
     private String number;
+    private String pkNumber;
 
 
 }

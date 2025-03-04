@@ -29,4 +29,5 @@ public class ReqCreateCreditConsumer {
     private String consumerCreditType;
     private String number;
     private String consumerCreditSubType;
+    private String pkNumber;
 }
