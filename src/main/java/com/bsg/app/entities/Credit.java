@@ -100,6 +100,9 @@ public class Credit {
     @Column(name = "notary")
     private String notary;
 
+    @Column(name = "pk_number")
+    private String pkNumber;
+
 
     @PrePersist
     public void prePersist() {
