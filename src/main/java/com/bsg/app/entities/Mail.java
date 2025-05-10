@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class Mail {
     private String id;
 
     @Column(name = "count")
-    private String count;
+    private BigInteger count;
 
     @Column(name = "name")
     private String name;

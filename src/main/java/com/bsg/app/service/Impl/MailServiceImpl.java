@@ -16,9 +16,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,9 +31,10 @@ public class MailServiceImpl implements MailService {
     @Override
     public ResponseEnum createMail(RequestCreateMail req) {
         String accountId = accountService.getCurrentAccountId();
+        Optional<Mail> getLattestMail=mailRepository.getLatestMail(req.getType(),req.getSubType());
+        BigInteger count = getLattestMail.map(Mail::getCount).orElse(new BigInteger("0")).add(BigInteger.ONE);
         try {
             Mail mail = Mail.builder()
-                    .count(req.getCount())
                     .name(req.getName())
                     .note(req.getNote())
                     .sender(req.getSender())
@@ -40,6 +43,7 @@ public class MailServiceImpl implements MailService {
                     .type(req.getType())
                     .date(req.getDate())
                     .createdBy(accountId)
+                    .count(count)
                     .build();
             mailRepository.save(mail);
             return ResponseEnum.SUCCESS;

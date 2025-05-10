@@ -1,0 +1,1 @@
+drop table account, credit, databasechangelog, databasechangeloglock, mail
