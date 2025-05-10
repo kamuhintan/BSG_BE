@@ -69,17 +69,18 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createCommercialCredit(RequestCreateCreditCommercial req) {
-
+        Optional<Credit> getLatestCommercial = creditRepository.getLattestCommercial(CreditTypeEnum.COMMERCIAL);
+        BigInteger count = getLatestCommercial.map(Credit::getNumber).orElse(new BigInteger("0")).add(BigInteger.ONE);
         try {
 
             Credit credit = Credit.builder()
+                    .number(count)
                     .name(req.getName())
                     .date(req.getDate())
                     .insurance(req.getAssurance())
                     .businessType(req.getBusinessType())
                     .requestNumber(req.getRequestNumber())
                     .pkDate(req.getPkDate())
-                    .number(req.getNumber())
                     .plafond(req.getPlafond())
                     .type(CreditTypeEnum.COMMERCIAL)
                     .creditType(req.getCreditType())

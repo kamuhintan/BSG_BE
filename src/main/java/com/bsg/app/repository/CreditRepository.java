@@ -35,5 +35,8 @@ public interface CreditRepository extends JpaRepository<Credit, String> {
 
     @Query (value= "select c from Credit as c where c.consumerCreditType=:type and c.type=:creditType order by  c.number desc limit 1")
     Optional<Credit> getLattestConsumer(String type, CreditTypeEnum creditType);
+    @Query (value= "select c from Credit as c where c.type=:creditType order by  c.number desc limit 1")
+    Optional<Credit> getLattestCommercial( CreditTypeEnum creditType);
+
 }
 
