@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 public interface CreditRepository extends JpaRepository<Credit, String> {
 
@@ -30,7 +31,9 @@ public interface CreditRepository extends JpaRepository<Credit, String> {
     @Query(value = "select coalesce(SUM(c.plafond) ,0 ) from Credit  as c  where c.type = :type")
     BigInteger sumTotalPlafondConsumer(CreditTypeEnum type);
 
-    boolean existsAllByNumberAndType(String number, CreditTypeEnum type);
+    boolean existsAllByNumberAndType(BigInteger number, CreditTypeEnum type);
 
+    @Query (value= "select c from Credit as c where c.consumerCreditType=:type and c.type=:creditType order by  c.number desc limit 1")
+    Optional<Credit> getLattestConsumer(String type, CreditTypeEnum creditType);
 }
 

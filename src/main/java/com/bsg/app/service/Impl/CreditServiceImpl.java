@@ -2,6 +2,7 @@ package com.bsg.app.service.Impl;
 
 import com.bsg.app.entities.Account;
 import com.bsg.app.entities.Credit;
+import com.bsg.app.entities.Mail;
 import com.bsg.app.enums.CreditTypeEnum;
 import com.bsg.app.enums.MailTypeEnum;
 import com.bsg.app.enums.ResponseEnum;
@@ -40,8 +41,8 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public String createConsumerCredit(ReqCreateCreditConsumer req) {
-        checkPhoneNumber(req.getNumber(), CreditTypeEnum.CONSUMER);
-
+        Optional<Credit> getLatestConsumer = creditRepository.getLattestConsumer(req.getConsumerCreditType(),CreditTypeEnum.CONSUMER);
+        BigInteger count = getLatestConsumer.map(Credit::getNumber).orElse(new BigInteger("0")).add(BigInteger.ONE);
         try {
 
             Credit credit = Credit.builder()
@@ -55,7 +56,7 @@ public class CreditServiceImpl implements CreditService {
                     .type(CreditTypeEnum.CONSUMER)
                     .consumerCreditType(req.getConsumerCreditType())
                     .consumerCreditSubType(req.getConsumerCreditSubType())
-                    .number(req.getNumber())
+                    .number(count)
                     .createdBy(accountService.getCurrentAccountId())
                     .pkNumber(req.getPkNumber())
                     .build();
@@ -68,7 +69,6 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createCommercialCredit(RequestCreateCreditCommercial req) {
-        checkPhoneNumber(req.getNumber(), CreditTypeEnum.COMMERCIAL);
 
         try {
 
@@ -94,12 +94,10 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createBiChecking(RequestCreateBiChecking req) {
-        checkPhoneNumber(req.getNumber(), CreditTypeEnum.BI_CHECKING);
 
         try {
             Credit credit = Credit.builder()
                     .name(req.getName())
-                    .number(req.getNumber())
                     .requestDate(req.getRequestDate())
                     .ktpNumber(req.getKtpNumber())
                     .type(CreditTypeEnum.BI_CHECKING)
@@ -273,11 +271,9 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createPkKur(ReqCreatePkKur req) {
-        checkPhoneNumber(req.getNumber(), CreditTypeEnum.PK_KUR);
 
         try {
             Credit credit = Credit.builder()
-                    .number(req.getNumber())
                     .name(req.getName())
                     .requestNumber(req.getRequestNumber())
                     .pkDate(req.getPkDate())
@@ -297,7 +293,7 @@ public class CreditServiceImpl implements CreditService {
         }
     }
 
-    private boolean checkPhoneNumber(String number, CreditTypeEnum type) {
+    private boolean checkPhoneNumber(BigInteger number , CreditTypeEnum type) {
         boolean checkNumber = creditRepository.existsAllByNumberAndType(number, type);
         if (checkNumber) {
             throw new BadRequestException(ResponseEnum.NUMBER_ALREADY_EXIST);

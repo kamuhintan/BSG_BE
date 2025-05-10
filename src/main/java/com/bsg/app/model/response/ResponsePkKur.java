@@ -19,7 +19,7 @@ import java.util.Date;
 @JsonSerialize
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ResponsePkKur {
-    private String number;
+    private BigInteger number;
     private String name;
     private String requestNumber;
     private Date pkDate;

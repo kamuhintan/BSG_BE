@@ -23,7 +23,7 @@ public class ResponseCreditCommercial {
     private String name;
     private Date date;
     private BigInteger plafond;
-    private String number;
+    private BigInteger number;
     private String creditType;
     private String createdBy;
     private Long createdDate;

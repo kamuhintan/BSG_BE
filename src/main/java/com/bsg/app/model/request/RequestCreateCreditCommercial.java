@@ -21,7 +21,7 @@ public class RequestCreateCreditCommercial {
 
     private String name;
     private Date date;
-    private String number;
+    private BigInteger number;
     private BigInteger plafond;
     private String creditType;
     private Date pkDate;

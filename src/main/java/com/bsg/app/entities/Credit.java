@@ -71,7 +71,7 @@ public class Credit {
     private String creditType;
 
     @Column(name = "number")
-    private String number;
+    private BigInteger number;
 
     @Column(name = "consumer_credit_type")
     private String consumerCreditType;

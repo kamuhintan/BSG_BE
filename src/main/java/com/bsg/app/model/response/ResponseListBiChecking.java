@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
@@ -23,7 +24,7 @@ public class ResponseListBiChecking  {
     private String createdBy;
     private Long createdDate;
     private String name;
-    private String number;
+    private BigInteger number;
     private Date requestDate;
     private String ktpNumber;
     private String placeOfBirth;

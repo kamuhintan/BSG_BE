@@ -33,7 +33,7 @@ public class ResponseCreditConsumer {
     private CreditTypeEnum type;
     private String consumerCreditType;
     private String consumerCreditSubType;
-    private String number;
+    private BigInteger number;
     private String pkNumber;
 
 
