@@ -95,7 +95,8 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createBiChecking(RequestCreateBiChecking req) {
-
+        Optional<Credit> getLatestBiChecking = creditRepository.getLattestCommercial(CreditTypeEnum.BI_CHECKING);
+        BigInteger count = getLatestBiChecking.map(Credit::getNumber).orElse(new BigInteger("0")).add(BigInteger.ONE);
         try {
             Credit credit = Credit.builder()
                     .name(req.getName())
@@ -106,6 +107,7 @@ public class CreditServiceImpl implements CreditService {
                     .dateOfBirth(req.getDateOfBirth())
                     .objective(req.getObjective())
                     .note(req.getNote())
+                    .number(count)
                     .createdBy(accountService.getCurrentAccountId())
                     .build();
             creditRepository.save(credit);
@@ -272,7 +274,8 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public ResponseEnum createPkKur(ReqCreatePkKur req) {
-
+        Optional<Credit> getLatestPkKur = creditRepository.getLattestCommercial(CreditTypeEnum.PK_KUR);
+        BigInteger count = getLatestPkKur.map(Credit::getNumber).orElse(new BigInteger("0")).add(BigInteger.ONE);
         try {
             Credit credit = Credit.builder()
                     .name(req.getName())
@@ -286,6 +289,7 @@ public class CreditServiceImpl implements CreditService {
                     .note(req.getNote())
                     .createdBy(accountService.getCurrentAccountId())
                     .type(CreditTypeEnum.PK_KUR)
+                    .number(count)
                     .build();
             creditRepository.save(credit);
             return ResponseEnum.SUCCESS;
